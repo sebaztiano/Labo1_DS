@@ -156,8 +156,6 @@ public class CarRentalCompany implements ICarRentalCompany{
 		Reservation res = new Reservation(quote, car.getId());
 		car.addReservation(res);
 		
-		//add to Mapper
-		reservations.add(res);
 		return res;
 	}
 
@@ -183,24 +181,20 @@ public class CarRentalCompany implements ICarRentalCompany{
 		return out.toString();
 	}
 	
-	private Collection<Reservation> getReservations(){
-		return reservations;
-	}
-	
 	public List<Reservation> getRenterReservations(String renter){
 		List<Reservation> renterReservations = new ArrayList<Reservation>();
-		for(Reservation reservation: getReservations()){
-			if(reservation.getCarRenter() == renter)
-				renterReservations.add(reservation);
+		for(Car car: cars){
+			renterReservations.addAll(car.getRenterReservations(renter));
 		}
 		return renterReservations;
 	}
 	
-	public int getNumberOfReservationsForCarType(String carType){
+	public int getNumberOfReservationsForCarType(String carTypeName){
 		int amountOfCarType = 0;
-		for(Reservation reservation: getReservations()){
-			if(reservation.getCarType() == carType)
-					amountOfCarType++;
+		CarType carType = getCarType(carTypeName);
+		for(Car car: cars){
+			if (car.getType()==carType)
+			amountOfCarType += car.getNumberReservations();
 		}
 		return amountOfCarType;
 	}
