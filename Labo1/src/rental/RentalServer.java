@@ -19,7 +19,6 @@ public class RentalServer {
 		CrcData data  = loadData("hertz.csv");		
 		CarRentalCompany company = new CarRentalCompany(data.name, data.regions, data.cars);
 		try{
-			System.setSecurityManager(null);
 			ICarRentalCompany stub = (ICarRentalCompany) UnicastRemoteObject.exportObject(company,0);
 			Registry registry = LocateRegistry.getRegistry();
 			registry.bind("ICarRentalCompany", stub);
