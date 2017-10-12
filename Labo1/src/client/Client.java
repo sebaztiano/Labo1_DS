@@ -86,6 +86,7 @@ public class Client extends AbstractTestBooking {
 	protected Quote createQuote(String clientName, Date start, Date end,
 			String carType, String region) throws Exception {
 		ReservationConstraints constraints = new ReservationConstraints(start, end, carType, region);
+		System.out.println(constraints);
 		return iCompany.createQuote(constraints, clientName);
 	}
 
@@ -128,6 +129,9 @@ public class Client extends AbstractTestBooking {
 			reservationsByRenter = iCompany.getRenterReservations(clientName);
 		}catch (Exception e){
 			e.printStackTrace();
+		}
+		for(Reservation reservation: reservationsByRenter){
+			System.out.println(reservation);
 		}
 		return reservationsByRenter;
 	}
